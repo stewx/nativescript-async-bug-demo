@@ -1,4 +1,4 @@
-import { ComponentFixture, async } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import {
     nsTestBedAfterEach,
     nsTestBedBeforeEach,
@@ -37,7 +37,7 @@ describe('ItemsComponent', () => {
     expect(component).toBeTruthy();
   }));
 
-  it('should mark the button as pushed after 2 seconds when you tap it', async(() => {
+  it('should mark the button as pushed after 2 seconds when you tap it (using whenStable)', async(() => {
     fixture.detectChanges();
     component.onTapButton();
 
@@ -46,6 +46,17 @@ describe('ItemsComponent', () => {
     fixture.whenStable().then(() => {
         expect(component.buttonWasTapped).toBe(true);
     });
+  }));
+
+  it('should mark the button as pushed after 2 seconds when you tap it (using setTimeout hack)', async(() => {
+    fixture.detectChanges();
+    component.onTapButton();
+
+    fixture.detectChanges();
+
+    setTimeout(() => {
+        expect(component.buttonWasTapped).toBe(true);
+    }, 3000);
   }));
 
 });
