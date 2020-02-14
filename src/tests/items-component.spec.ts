@@ -48,6 +48,18 @@ describe('ItemsComponent', () => {
     });
   }));
 
+  it('should mark the button as pushed after 2 seconds when you tap it (using done function)', (done: DoneFn) => {
+    fixture.detectChanges();
+    component.onTapButton();
+
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+        expect(component.buttonWasTapped).toBe(true);
+        done();
+    });
+  });
+
   it('should mark the button as pushed after 2 seconds when you tap it (using setTimeout hack)', async(() => {
     fixture.detectChanges();
     component.onTapButton();
